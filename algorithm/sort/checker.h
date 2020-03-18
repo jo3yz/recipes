@@ -6,10 +6,9 @@
 #include <random>
 #include <iostream>
 
-
 enum {
-    ASC_ORDER = 0, // ÉýÐò
-    DES_ORDER = 1  // ½µÐò
+    ASC_ORDER = 0,
+    DES_ORDER = 1
 };
 
 bool Check(std::function<void(std::vector<int>&, bool)> func)

@@ -1,9 +1,13 @@
+#include <vector>
 #include <iostream>
-#include "sort/simple.h"
+#include <algorithm>
+#include <functional>
+#include "checker.h"
+#include "merge.h"
+
 
 int main()
 {
-    SimpleTest();
-
+    MergeTest();
     return 0;
 }
