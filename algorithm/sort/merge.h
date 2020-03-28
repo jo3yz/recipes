@@ -151,6 +151,12 @@ void SmallSum(std::vector<int> &v, size_t begin, size_t end, int &sum)
 
 void ReversePair(std::vector<int> &v, size_t begin, size_t end, int &num)
 {
+    if(v.size() == 0 || v.size() == 1)
+    {
+        num = 0;
+        return;
+    }
+
     if(begin == end)
         return;
 
@@ -159,33 +165,38 @@ void ReversePair(std::vector<int> &v, size_t begin, size_t end, int &num)
     ReversePair(v, begin, mid, num);
     ReversePair(v, mid+1, end, num);
 
+
     std::vector<int> temp{};
+
     size_t i = begin;
     size_t j = mid + 1;
-
     while(i <= mid && j <= end)
     {
-        if(v[i] > v[j])
+        if(v[i] <= v[j])
         {
-            num += (i - begin + 1);
             temp.push_back(v[i++]);
         }
         else
         {
+            std::cout<<"i:"<<i<<" j:"<<j<<std::endl;
+            num += (mid - i + 1);
             temp.push_back(v[j++]);
         }
-    }
-
-    while(j <= end)
-    {
-        temp.push_back(v[j++]);
     }
     while(i <= mid)
     {
         temp.push_back(v[i++]);
     }
-}
+    while(j <= end)
+    {
+        temp.push_back(v[j++]);
+    }
 
+    for(size_t ii = begin, jj = 0; ii <= end; ++ii, ++jj)
+    {
+        v[ii] = temp[jj];
+    }
+}
 
 void MergeTest()
 {
