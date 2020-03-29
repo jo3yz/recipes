@@ -5,30 +5,6 @@
 #include "checker.h"
 
 template <typename T>
-void MergeSort(std::vector<T> &v, bool order)
-{
-    PostOrder(v, 0, v.size() - 1, order);
-}
-
-template <typename T>
-void PostOrder(std::vector<T> &v, size_t begin, size_t end, bool order)
-{
-    // array has been divided
-    if(begin == end)
-        return;
-
-    size_t mid = begin + (end - begin) / 2;
-
-    PostOrder(v, begin, mid, order);
-    PostOrder(v, mid + 1, end, order);
-
-    // 现现the status of each division is now stored in calling stack
-
-    // now merge every small array which is ordered
-    Merge(v, begin, mid, end, order);
-}
-
-template <typename T>
 void Merge(std::vector<T> &v, size_t begin, size_t mid, size_t end, bool order)
 {
     std::vector<T> temp{};
@@ -74,6 +50,31 @@ void Merge(std::vector<T> &v, size_t begin, size_t mid, size_t end, bool order)
         v[ii] = temp[jj];
     }
 }
+
+template <typename T>
+void PostOrder(std::vector<T> &v, size_t begin, size_t end, bool order)
+{
+    // array has been divided
+    if(begin == end)
+        return;
+
+    size_t mid = begin + (end - begin) / 2;
+
+    PostOrder(v, begin, mid, order);
+    PostOrder(v, mid + 1, end, order);
+
+    // 现现the status of each division is now stored in calling stack
+
+    // now merge every small array which is ordered
+    Merge(v, begin, mid, end, order);
+}
+
+template <typename T>
+void MergeSort(std::vector<T> &v, bool order)
+{
+    PostOrder(v, 0, v.size() - 1, order);
+}
+
 
 template <typename T>
 void NonRecursive_MergeSort(std::vector<T> &v, bool order)

@@ -38,17 +38,6 @@ ListNode *insertionSortList(ListNode *head)
 }
 
 
-
-void printList(ListNode *head)
-{
-    ListNode *cur = head;
-    for(; cur != NULL; cur = cur->next)
-    {
-        std::cout<<cur->val<<",";
-    }
-    std::cout<<std::endl;
-}
-
 void insertionSortListTest()
 {
     ListNode *head = createList({1,2,5,0,9});
