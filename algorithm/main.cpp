@@ -1,12 +1,7 @@
-#include "linklist/reverse.h"
-#include "linklist/reorder.h"
-#include "linklist/partition.h"
-#include "linklist/copyComplexLinklist.h"
-
-using namespace std;
+#include "binarytree/serialize.h"
 
 int main()
 {
-    copyRandomListTest();
+    toSequenceTest();
     return 0;
 }

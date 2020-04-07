@@ -1,16 +1,8 @@
-#ifndef ALGORITHM_DEF_H
-#define ALGORITHM_DEF_H
+//
+// Created by joey on 4/7/20.
+//
 
-#include <cstddef>
-#include <vector>
-#include <iostream>
-
-struct ListNode
-{
-    int val;
-    ListNode *next;
-    ListNode(int x) : val(x), next(NULL) {}
-};
+#include "linklist/link_list_def.h"
 
 ListNode *createList(const std::vector<int>& vals)
 {
@@ -34,5 +26,3 @@ void printList(ListNode *head)
     }
     std::cout<<std::endl;
 }
-
-#endif //ALGORITHM_DEF_H

@@ -143,7 +143,7 @@ public:
 
     T &operator*() const noexcept
     {
-        return *ptr;
+        return *ptr_;
     }
 
     operator bool() const noexcept

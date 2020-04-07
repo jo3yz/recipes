@@ -16,19 +16,19 @@ public:
     }
 
 
-    unique_ptr(unique_ptr &other) = delete;
+    unique_ptr(unique_ptr &rhs) = delete;
 
-    unique_ptr(unique_ptr &&other)
+    unique_ptr(unique_ptr &&rhs)
     {
-        ptr_ = other.release();
+        ptr_ = rhs.release();
     }
 
     // make use of character of raw pointer
     // TODO: use dynamic_cast instead
     template <typename U>
-    unique_ptr(unique_ptr<U> &&other)
+    unique_ptr(unique_ptr<U> &&rhs)
     {
-        ptr_ = other.release();
+        ptr_ = rhs.release();
     }
 
 //    better than old style "this->" assignment, which called copy-and-swap idiom
