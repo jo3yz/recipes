@@ -1,7 +1,6 @@
-#include "binarytree/serialize.h"
-
+#include "binarytree/simple.h"
 int main()
 {
-    toSequenceTest();
+    isBalancedTest();
     return 0;
 }
