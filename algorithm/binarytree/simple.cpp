@@ -61,19 +61,20 @@ bool isBalanced(TreeNode* root)
 }
 
 int dfs(TreeNode* root, bool &balanced){
-    if(root==NULL) return 0;
-    int l=dfs(root->left, balanced);
-    int r=dfs(root->right, balanced);
-    if(abs(l-r)>1)
+    if(!root)
+        return 0;
+
+    int l = dfs(root->left, balanced);
+    int r = dfs(root->right, balanced);
+    if(abs(l - r) > 1)
         balanced = false;
-    return std::max(l,r) + 1;
+    return std::max(l, r) + 1;
 }
 bool isBalancedBetter(TreeNode* root)
 {
     bool balanced = true;
     dfs(root, balanced);
-    if(!balanced) return false;
-    else return true;
+    return balanced;
 }
 
 void isBalancedTest()
@@ -92,4 +93,38 @@ void isBalancedTest()
     n4.left = &n6;
 
     std::cout<<isBalanced(&n1)<<std::endl;
+}
+
+vector<string> ret{};
+string path{};
+
+void DFS(TreeNode* root)
+{
+    if(!root)
+        return;
+
+    if(!root->left && !root->right)
+    {
+        path += std::to_string(root->val);
+        ret.push_back(path);
+        path.erase(--path.end());
+        return;
+    }
+    else
+    {
+        path += std::to_string(root->val);
+        path += "->";
+        binaryTreePaths(root->left);
+        binaryTreePaths(root->right);
+    }
+
+    size_t size = std::to_string(root->val).size() + 2;
+    while(size--)
+        path.erase(--path.end());
+}
+
+vector<string> binaryTreePaths(TreeNode* root)
+{
+    DFS(root);
+    return ret;
 }
