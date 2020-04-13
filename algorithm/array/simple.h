@@ -2,8 +2,8 @@
 // Created by joey on 4/12/20.
 //
 
-#ifndef ALGORITHM_SIMPLE_H
-#define ALGORITHM_SIMPLE_H
+#ifndef ALGORITHM_ARRAY_SIMPLE_H
+#define ALGORITHM_ARRAY_SIMPLE_H
 
 #include <vector>
 

@@ -1,5 +1,5 @@
-#ifndef ALGORITHM_SIMPLE_H
-#define ALGORITHM_SIMPLE_H
+#ifndef ALGORITHM_SORT_SIMPLE_H
+#define ALGORITHM_SORT_SIMPLE_H
 
 #include <vector>
 #include <functional>

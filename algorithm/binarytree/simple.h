@@ -2,8 +2,8 @@
 // Created by joey on 4/8/20.
 //
 
-#ifndef ALGORITHM_SIMPLE_H
-#define ALGORITHM_SIMPLE_H
+#ifndef ALGORITHM_BINARYTREE_SIMPLE_H
+#define ALGORITHM_BINARYTREE_SIMPLE_H
 
 #include "binarytree/binary_tree_def.h"
 
