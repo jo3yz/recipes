@@ -6,6 +6,7 @@
 #define ALGORITHM_STRING_SIMPLE_H
 
 #include <string>
+#include <array>
 
 int longestPalindrome(std::string s);
 

@@ -6,6 +6,12 @@
 #define ALGORITHM_ARRAY_SIMPLE_H
 
 #include <vector>
+#include <unordered_map>
+#include <array>
+#include <list>
+#include <algorithm>
+#include <iostream>
+
 
 int Fibonacci(int n);
 int findShortestUnordered(std::vector<int> A, int n);
