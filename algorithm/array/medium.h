@@ -31,4 +31,11 @@ void permuteTest();
 int findRepeatNumber(vector<int>& nums);
 void findRepeatNumberTest();
 
+// leetcode 11
+int maxArea(vector<int>& height);
+void maxAreaTest();
+
+// leetcode 15
+vector<vector<int>> threeSum(vector<int>& nums);
+
 #endif //ALGORITHM_MEDIUM_H

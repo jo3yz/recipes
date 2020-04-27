@@ -3,6 +3,7 @@
 //
 #include <numeric>
 #include <strings.h>
+#include <iostream>
 #include "array/medium.h"
 
 // offer 56.1
@@ -289,4 +290,156 @@ void findRepeatNumberTest()
     auto ans  = findRepeatNumberBitmap(vi);
 
     int a = 0;
+}
+
+int maxArea(vector<int>& height)
+{
+    int ret = -1;
+    int k = 0;
+    for(int i = 0; i < height.size(); )
+    {
+        int j = height.size() - 1;
+
+        while(i < j)
+        {
+            // calc
+            int area = std::min(height[i], height[j]) * (j - i);
+            ret = std::max(ret, area);
+
+            // move j
+            for(k = j - 1; i < k; --k)
+            {
+                if(height[k] > height[j])
+                {
+                    j = k;
+                    break;
+                }
+            }
+
+            if(k == i)
+                break;
+        }
+
+        // move i
+        for(k = i + 1; k < height.size(); ++k)
+        {
+            if(height[k] > height[i])
+            {
+                i = k;
+                break;
+            }
+        }
+        if(k == height.size())
+            break;
+    }
+
+    return ret;
+}
+
+
+//若向内移动短板，水槽的短板 min(h[i], h[j])min(h[i],h[j]) 可能变大，因此水槽面积 S(i, j)S(i,j) 可能增大。
+//若向内移动长板，水槽的短板 min(h[i], h[j])min(h[i],h[j]) 不变或变小，下个水槽的面积一定小于当前水槽面积。
+//因此，向内收窄短板可以获取面积最大值。
+//链接：https://leetcode-cn.com/problems/container-with-most-water/solution/container-with-most-water-shuang-zhi-zhen-fa-yi-do/
+
+int maxAreaBetter(vector<int>& height)
+{
+    int ret = -1;
+    int i = 0, j = height.size() - 1;
+    while(i < j)
+    {
+        int area = std::min(height[i], height[j]) * (j - i);
+        ret = std::max(ret, area);
+
+        if(height[i] < height[j])
+            ++i;
+        else
+            --j;
+    }
+
+    return ret;
+}
+
+void maxAreaTest()
+{
+    // j = 8 6
+    // i
+    vector<int> vi{1,8,6,2,5,4,8,3,7};
+    std::cout << maxArea(vi) << std::endl;
+    std::cout << maxAreaBetter(vi) << std::endl;
+}
+
+// 给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有满足条件且不重复的三元组。
+//
+//注意：答案中不可以包含重复的三元组。
+//
+// 
+//
+//示例：
+//
+//给定数组 nums = [-1, 0, 1, 2, -1, -4]，
+//
+//满足要求的三元组集合为：
+//[
+//  [-1, 0, 1],
+//  [-1, -1, 2]
+//]
+//
+//来源：力扣（LeetCode）
+//链接：https://leetcode-cn.com/problems/3sum
+//著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+vector<vector<int>> threeSum(vector<int>& nums)
+{
+    vector<vector<int>> ret;
+    if(nums.size() < 3)
+        return ret;
+
+    if(nums.size() == 3)
+    {
+        if(nums[0] + nums[1] + nums[2] == 0)
+        {
+            ret.push_back(nums);
+        }
+        return ret;
+    }
+
+    std::sort(nums.begin(), nums.end());
+    for(size_t k = 0; k < nums.size(); ++k)
+    {
+        if(nums[k] > 0)
+            break;
+        if(k != 0)
+        {
+            if(nums[k] == nums[k - 1])
+                continue;
+        }
+
+        for(size_t i = k + 1, j = nums.size() - 1; i < j; )
+        {
+            int sum = nums[k] + nums[i] + nums[j];
+            if(sum == 0)
+            {
+                ret.push_back({nums[k], nums[i], nums[j]});
+
+                do{ ++i; }
+                while(i < j && nums[i] == nums[i - 1]);
+                do{ --j; }
+                while(i < j && nums[j] == nums[j + 1]);
+            }
+            else if(sum < 0)
+            {
+                do{ ++i; }
+                while(i < j && nums[i] == nums[i - 1]);
+
+            }
+            else // sum > 0
+            {
+                do{ --j; }
+                while(i < j && nums[j] == nums[j + 1]);
+            }
+        }
+    }
+
+    return ret;
 }

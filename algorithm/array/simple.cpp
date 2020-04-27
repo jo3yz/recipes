@@ -50,47 +50,33 @@ int findShortestUnordered(std::vector<int> A, int n)
 
     return begin < end ? end-begin+1 : 0;
 }
-
+// pair: value - first_index
 std::vector<int> twoSum(std::vector<int>& nums, int target)
 {
-    std::unordered_map<int, std::list<int>> m{};
+    std::unordered_map<int,int> numMap{};
     for(int i = 0; i < nums.size(); ++i)
     {
-        m[nums[i]].push_back(i);
+        if(numMap.count(nums[i]) == 0)
+            numMap[nums[i]] = i;
     }
 
-    std::sort(nums.begin(), nums.end());
-
-    int i = 0, j = 1;
-    while(i < nums.size())
+    for(int i = 0; i < nums.size(); ++i)
     {
-        while(j < nums.size())
+        int compliment = target - nums[i];
+        if(numMap.count(compliment) != 0)
         {
-            if(nums[i] + nums[j] == target)
-            {
-                if(nums[i] != nums[j])
-                    return {m[nums[i]].front(), m[nums[j]].front()};
-                else
-                    return {m[nums[i]].front(), m[nums[j]].back()};
-            }
-            else if(nums[i] + nums[j] > target)
-            {
-                break;
-            }
-            else
-            {
-                ++j;
-            }
+            int j = numMap[compliment];
+            if(i != j)
+                return {i, j};
         }
-        ++i;
-        j = i + 1;
     }
+
     return {};
 }
 
 void testTwoSum()
 {
-    std::vector<int> vi{3,2,3};
+    std::vector<int> vi{3,2,4};
     auto ret = twoSum(vi, 6);
     std::cout<<ret[0]<<","<<ret[1];
 }
