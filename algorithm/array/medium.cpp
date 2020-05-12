@@ -2,7 +2,7 @@
 // Created by joey on 4/12/20.
 //
 #include <numeric>
-#include <strings.h>
+//#include <strings.h>
 #include <iostream>
 #include "array/medium.h"
 
@@ -268,7 +268,7 @@ int findRepeatNumberBitmap(vector<int>& nums)
 {
     const auto bitmapSize = 100000;
     unsigned char bitmap[bitmapSize / 8 + 1];
-    bzero(bitmap, sizeof bitmap);
+    memset(bitmap, 0, sizeof(bitmap));
 
     for(auto &num : nums)
     {

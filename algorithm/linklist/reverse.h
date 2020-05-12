@@ -12,6 +12,5 @@ using std::vector;
 ListNode* reverseBetween(ListNode* head, int m, int n);
 ListNode *reverse(ListNode *head);
 void reverseTest();
-vector<int> reversePrint(ListNode* head);
 
 #endif //ALGORITHM_REVERSE_H

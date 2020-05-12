@@ -1,1 +1,6 @@
 /moderncpp/.idea/
+/gof/out/build/x64-Debug
+/apue/out/build/x64-Debug
+/algorithm/out/build/x64-Debug
+/algorithm/CMakeSettings.json
+/.vs

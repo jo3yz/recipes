@@ -87,26 +87,3 @@ void reverseTest()
     list = reverseBetween(list,1,3);
     printList(list);
 }
-
-vector<int> reversePrint(ListNode* head)
-{
-    size_t count = 0;
-    vector<int> ret{};
-    ListNode *pre = NULL;
-    ListNode *cur = head;
-    ListNode *nxt = NULL;
-    while(cur)
-    {
-        count++;
-        nxt = cur->next;
-        cur->next = pre;
-        pre = cur;
-        cur = nxt;
-    }
-    ret.reserve(count);
-    while(pre)
-    {
-        ret.push_back(pre->val);
-        pre = pre->next;
-    }
-}

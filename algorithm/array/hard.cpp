@@ -2,6 +2,9 @@
 #include <iostream>
 #include <algorithm>
 #include <stack>
+#include <queue>
+#include <deque>
+#include <cassert>
 
 //给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。
 //求在该柱状图中，能够勾勒出来的矩形的最大面积。
@@ -95,4 +98,107 @@ int largestRectangleArea(vector<int> &heights)
     }
 
     return ret;
+}
+
+
+// O(n*n)的方法，加入了一点点优化
+int maxElementIndex(vector<int>& nums, int l, int r)
+{
+    int max = INT32_MIN;
+    int index = 0;
+    for (int i = l; i <= r; ++i)
+    {
+        if (max < nums[i])
+        {
+            max = nums[i];
+            index = i;
+        }
+    }
+
+    return index;
+}
+vector<int> maxSlidingWindowBrutal(vector<int>& nums, int k)
+{
+    if (nums.size() <= 1 || k == 1)
+        return nums;
+
+    if (nums.size() == k)
+        return { nums[maxElementIndex(nums, 0, k - 1)]};
+
+
+    vector<int> vi;
+    vi.reserve(nums.size() - k + 1);
+
+    for (int i = 0; i < nums.size() - k + 1; ++i)
+    {
+        if (vi.empty())
+        {
+            auto index = maxElementIndex(nums, 0, k - 1);
+            vi.push_back(index);
+        }
+        else
+        {
+            if (vi[i - 1] < i) // 如果最大值不能重复利用了
+            {
+                auto index = maxElementIndex(nums, i, i + k - 1);
+                vi.push_back(index);
+            }
+            else
+            {
+                auto index = nums[vi[i - 1]] > nums[i + k - 1] ? vi[i - 1] : i + k - 1;
+                vi.push_back(index);
+            }
+        }
+    }
+
+    for (auto& val : vi)
+    {
+        val = nums[val];
+    }
+
+    return vi;
+}
+
+
+// 用单调队列的思想
+// 但是结果我还不如我O(n*n)小优化
+// 看来还是要DP才能有好的复杂度
+vector<int> maxSlidingWindow(vector<int>& nums, int k)
+{
+    if (nums.size() <= 1 || k == 1)
+        return nums;
+
+    vector<int> vi;
+    vi.reserve(nums.size() - k + 1);
+
+    deque<int> di; // di里面存下标
+    
+    for (size_t i = 0; i < nums.size(); ++i)
+    {
+        if (i < k - 1)
+        {
+            while (!di.empty() && nums[di.back()] <= nums[i])
+            {
+                di.pop_back();
+            }
+            di.push_back(i);
+        }
+        else
+        {
+            // 删除di里为i-k的下标
+            // di.erase(std::remove(di.begin(), di.end(), i - k), di.end());
+            if (di.front() == i - k)
+            {
+                di.pop_front();
+            }
+            while (!di.empty() && nums[di.back()] <= nums[i])
+            {
+                di.pop_back();
+            }
+            di.push_back(i);
+            vi.push_back(nums[di.front()]);
+        }
+    }
+
+    return vi;
 }

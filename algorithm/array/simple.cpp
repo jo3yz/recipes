@@ -2,7 +2,7 @@
 // Created by joey on 4/12/20.
 //
 
-#include <strings.h>
+//#include <strings.h>
 #include <stack>
 #include <memory>
 #include "array/simple.h"
